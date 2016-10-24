@@ -117,6 +117,20 @@ class Configuration
                 $this->data[$key] = $value;
             }
         }
+
+        $this->selectAuthMode();
+    }
+
+    /**
+     * Select the mode for authentication
+     */
+    protected function selectAuthMode()
+    {
+        if ($this->user && $this->privateKey) {
+            $this->authenticationMethod = static::AUTH_BY_IDENTITY_FILE;
+        } elseif ($this->user && $this->pemFile) {
+            $this->authenticationMethod = static::AUTH_BY_PEM_FILE;
+        }
     }
 
     /**

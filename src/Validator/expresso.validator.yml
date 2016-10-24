@@ -1,0 +1,125 @@
+root:
+    _type: array
+    _children:
+        project:
+            _type: array
+            _required: true
+            _ignore_extra_keys: true
+            _children:
+                name:
+                    _type: text
+                    _required: true
+                keep_release:
+                    _type: number
+                default_stage:
+                    _type: text
+                vcs:
+                    _type: choice
+                    _required: true
+                    _choices:
+                        1:
+                            _type: array
+                            _children:
+                                git:
+                                    _type: array
+                                    _ignore_extra_keys: true
+                                    _children:
+                                        repo:
+                                            _type: text
+                                        default_branch:
+                                            _type: text
+                        2:
+                            _type: array
+                            _children:
+                                directory:
+                                    _type: text
+                permission:
+                    _type: array
+                    _ignore_extra_keys: true
+                    _children:
+                        user_group:
+                            _type: text
+                        use_sudo:
+                            _type: text
+                        release_writable:
+                            _type: prototype
+                            _prototype:
+                                _type: text
+                        shared_writable:
+                            _type: prototype
+                            _prototype:
+                                _type: text
+                unwanted_file:
+                    _type: prototype
+                    _prototype:
+                        _type: text
+                unwanted_folder:
+                   _type: prototype
+                   _prototype:
+                       _type: text
+                shared:
+                    _type: array
+                    _children:
+                        file:
+                            _type: prototype
+                            _prototype:
+                                _type: text
+                        folder:
+                            _type: prototype
+                            _prototype:
+                                _type: text
+                dependencies:
+                    _type: prototype
+                    _prototype:
+                        _type: array
+                        _ignore_extra_keys: true
+                        _children:
+                            bin_path:
+                                _type: text
+                            param:
+                                _type: text
+
+        tasks:
+            _type: array
+            _required: true
+            _ignore_extra_keys: true
+            _children:
+                before:
+                    _type: prototype
+                    _prototype:
+                        _type: text
+                after:
+                    _type: prototype
+                    _prototype:
+                        _type: text
+                list:
+                    _type: prototype
+                    _required: true
+                    _prototype:
+                        _type: text
+                        _required: true
+        servers:
+            _type: prototype
+            _prototype:
+                _type: array
+                _required: true
+                _ignore_extra_keys: true
+                _children:
+                    host:
+                        _type: text
+                        _required: true
+                    user:
+                        _type: text
+                        _required: true
+                    roles:
+                        _type: prototype
+                        _required: true
+                        _prototype:
+                            _type: text
+        stages:
+            _type: prototype
+            _prototype:
+                _type: prototype
+                _prototype:
+                    _type: text
+

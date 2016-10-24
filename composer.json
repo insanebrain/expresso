@@ -1,0 +1,35 @@
+{
+  "name": "insanebrain/expresso",
+  "description": "Deployment Tool",
+  "license": "MIT",
+  "support": {
+    "source": "https://github.com/insanebrain/expresso"
+  },
+  "authors": [
+    {
+      "name": "Alexandre HAAG",
+      "email": "alexandre.haag90@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Expresso\\": "src/"
+    }
+  },
+  "bin": [
+    "bin/exp"
+  ],
+  "require": {
+    "php": ">=5.5.0",
+    "symfony/finder": "~2.6|~3.0",
+    "symfony/console": "~2.6|~3.0",
+    "symfony/yaml": "~2.6|~3.0",
+    "symfony/process": "~2.6|~3.0",
+    "phpseclib/phpseclib": "~2.0",
+    "romaricdrigon/metayaml": "^1.1",
+    "dflydev/dot-access-data": "1.0.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.5"
+  }
+}

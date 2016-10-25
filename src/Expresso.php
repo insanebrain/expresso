@@ -245,16 +245,7 @@ class Expresso
      */
     public function getTasksBefore($taskName)
     {
-        $tasks = $this->getTasks();
-        if (array_key_exists(static::KEY_BEFORE, $tasks)
-            && is_array($tasks[static::KEY_BEFORE])
-            && array_key_exists($taskName, $tasks[static::KEY_BEFORE])
-            && $tasks[static::KEY_BEFORE][$taskName]
-        ) {
-
-            return $tasks[static::KEY_BEFORE][$taskName];
-        }
-        return array();
+        return $this->get('tasks.before.' . $taskName, array());
     }
 
     /**
@@ -263,16 +254,7 @@ class Expresso
      */
     public function getTasksAfter($taskName)
     {
-        $tasks = $this->getTasks();
-        if (array_key_exists(static::KEY_AFTER, $tasks)
-            && is_array($tasks[static::KEY_AFTER])
-            && array_key_exists($taskName, $tasks[static::KEY_AFTER])
-            && $tasks[static::KEY_AFTER][$taskName]
-        ) {
-
-            return $tasks[static::KEY_AFTER][$taskName];
-        }
-        return array();
+        return $this->get('tasks.after.' . $taskName, array());
     }
 
     /**

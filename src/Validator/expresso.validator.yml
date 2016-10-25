@@ -78,7 +78,15 @@ root:
                                 _type: text
                             param:
                                 _type: text
-
+                symfony:
+                    _type: array
+                    _ignore_extra_keys: true
+                    _children:
+                        console_path:
+                            _type: text
+                            _required: true
+                        param:
+                            _type: text
         tasks:
             _type: array
             _required: true
@@ -87,11 +95,15 @@ root:
                 before:
                     _type: prototype
                     _prototype:
-                        _type: text
+                        _type: prototype
+                        _prototype:
+                            _type: text
                 after:
                     _type: prototype
                     _prototype:
-                        _type: text
+                        _type: prototype
+                        _prototype:
+                            _type: text
                 list:
                     _type: prototype
                     _required: true

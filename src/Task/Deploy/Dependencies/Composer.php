@@ -7,6 +7,7 @@ use Symfony\Component\Console\Exception\RuntimeException;
 
 class Composer extends TaskAbstract
 {
+    CONST PARAM = '--no-dev --prefer-dist --optimize-autoloader --no-progress --no-interaction';
     /**
      * @var string
      */
@@ -16,13 +17,12 @@ class Composer extends TaskAbstract
 
     protected $binary = 'composer';
 
-    protected $param = '--no-dev --prefer-dist --optimize-autoloader --no-progress --no-interaction';
-
     public function execute()
     {
         $releaseName = $this->expresso->get('current_deploy.release_name');
-        $param = $this->expresso->get('project.dependencies.composer.param', $this->param);
+        $param = $this->expresso->get('project.dependencies.composer.param', static::PARAM);
         $binary = $this->expresso->get('project.dependencies.composer.bin_path', $this->binary);
+        $envVar = $this->getEnvVar();
         if ($this->expresso->get('current_deploy.started', false)) {
             $this->getWorker()->setWorkingDir($this->getWorker()->getReleasesDir() . $releaseName);
         } else {
@@ -32,12 +32,20 @@ class Composer extends TaskAbstract
 
         foreach ($results as $result) {
             if ($result->toBool()) {
-                $this->getWorker()->runOnServers($binary . ' install ' . $param, array($result->getServer()));
+                $this->getWorker()->runOnServers($envVar . $binary . ' install ' . $param, array($result->getServer()));
             } else {
                 throw new RuntimeException('Unable to find composer');
             }
         }
 
         return;
+    }
+
+    protected function getEnvVar()
+    {
+        if ($this->expresso->get('project.dependencies.composer.env_var')) {
+            return 'export ' . $this->expresso->get('project.dependencies.composer.env_var') . ' && ';
+        }
+        return null;
     }
 }
